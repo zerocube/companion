@@ -84,9 +84,6 @@ jobs:
           tar -cvzf companion-x64.tar.gz companion-x64
         env:
           CI: 1
-          SENTRY_DSN: ${{ secrets.SENTRY2_DSN }}
-          VITE_SENTRY_DSN: ${{ secrets.SENTRY2_UI_DSN }}
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY2_AUTH_TOKEN }}
           USE_HARD_LINKS: false
 
       - name: Determine files to upload
@@ -105,24 +102,6 @@ jobs:
           name: ${{ steps.filenames.outputs.targetname }}
           path: ${{ steps.filenames.outputs.sourcename }}
           retention-days: 1
-      - name: Upload build
-        id: upload
-        uses: bitfocus/actions/upload-and-notify@main
-        with:
-          long-version: ${{ steps.filenames.outputs.longversion }}
-          beta-branch: main
-          dev-branch: develop
-
-          source-filename: ${{ steps.filenames.outputs.sourcename }}
-          destination-filename: ${{ steps.filenames.outputs.targetname }}
-          s3-host: ${{ secrets.S3_HOST }}
-          s3-bucket: ${{ secrets.S3_BUCKET }}/companion
-          s3-access-key: ${{ secrets.S3_KEY }}
-          s3-secret-key: ${{ secrets.S3_SECRET }}
-
-          api-product: companion
-          api-target: 'linux-tgz'
-          api-secret: ${{ secrets.BITFOCUS_API_PROJECT_SECRET }}
 
   linux-arm64:
     runs-on: ubuntu-22.04-arm
@@ -162,9 +141,6 @@ jobs:
           tar -cvzf companion-arm64.tar.gz companion-arm64
         env:
           CI: 1
-          SENTRY_DSN: ${{ secrets.SENTRY2_DSN }}
-          VITE_SENTRY_DSN: ${{ secrets.SENTRY2_UI_DSN }}
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY2_AUTH_TOKEN }}
           SKIP_LAUNCH_CHECK: true
           USE_HARD_LINKS: false
 
@@ -184,23 +160,7 @@ jobs:
           name: ${{ steps.filenames.outputs.targetname }}
           path: ${{ steps.filenames.outputs.sourcename }}
           retention-days: 1
-      - name: Upload build
-        uses: bitfocus/actions/upload-and-notify@main
-        with:
-          long-version: ${{ steps.filenames.outputs.longversion }}
-          beta-branch: main
-          dev-branch: develop
-
-          source-filename: ${{ steps.filenames.outputs.sourcename }}
-          destination-filename: ${{ steps.filenames.outputs.targetname }}
-          s3-host: ${{ secrets.S3_HOST }}
-          s3-bucket: ${{ secrets.S3_BUCKET }}/companion
-          s3-access-key: ${{ secrets.S3_KEY }}
-          s3-secret-key: ${{ secrets.S3_SECRET }}
-
-          api-product: companion
-          api-target: 'linux-arm64-tgz'
-          api-secret: ${{ secrets.BITFOCUS_API_PROJECT_SECRET }}
+          
 
   osx-x64:
     runs-on: macos-latest
@@ -235,14 +195,6 @@ jobs:
           yarn tsx tools/build/complete.mts darwin-x64
         env:
           CI: 1
-          CSC_LINK: ${{ secrets.OSX_CSC_LINK }}
-          CSC_KEY_PASSWORD: ${{ secrets.OSX_CSC_KEY_PASSWORD }}
-          APPLE_ID: ${{ secrets.APPLEID }}
-          APPLE_TEAM_ID: ${{ secrets.APPLETEAMID }}
-          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLEIDPASS }}
-          SENTRY_DSN: ${{ secrets.SENTRY2_DSN }}
-          VITE_SENTRY_DSN: ${{ secrets.SENTRY2_UI_DSN }}
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY2_AUTH_TOKEN }}
           USE_HARD_LINKS: false
 
       - name: Determine files to upload
@@ -261,23 +213,6 @@ jobs:
           name: ${{ steps.filenames.outputs.targetname }}
           path: ${{ steps.filenames.outputs.sourcename }}
           retention-days: 1
-      - name: Upload build
-        uses: bitfocus/actions/upload-and-notify@main
-        with:
-          long-version: ${{ steps.filenames.outputs.longversion }}
-          beta-branch: main
-          dev-branch: develop
-
-          source-filename: ${{ steps.filenames.outputs.sourcename }}
-          destination-filename: ${{ steps.filenames.outputs.targetname }}
-          s3-host: ${{ secrets.S3_HOST }}
-          s3-bucket: ${{ secrets.S3_BUCKET }}/companion
-          s3-access-key: ${{ secrets.S3_KEY }}
-          s3-secret-key: ${{ secrets.S3_SECRET }}
-
-          api-product: companion
-          api-target: 'mac-intel'
-          api-secret: ${{ secrets.BITFOCUS_API_PROJECT_SECRET }}
 
   osx-arm64:
     runs-on: macos-latest
@@ -315,14 +250,6 @@ jobs:
           yarn tsx tools/build/complete.mts darwin-arm64
         env:
           CI: 1
-          CSC_LINK: ${{ secrets.OSX_CSC_LINK }}
-          CSC_KEY_PASSWORD: ${{ secrets.OSX_CSC_KEY_PASSWORD }}
-          APPLE_ID: ${{ secrets.APPLEID }}
-          APPLE_TEAM_ID: ${{ secrets.APPLETEAMID }}
-          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLEIDPASS }}
-          SENTRY_DSN: ${{ secrets.SENTRY2_DSN }}
-          VITE_SENTRY_DSN: ${{ secrets.SENTRY2_UI_DSN }}
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY2_AUTH_TOKEN }}
           USE_HARD_LINKS: false
           SKIP_LAUNCH_CHECK: true
 
@@ -342,23 +269,6 @@ jobs:
           name: ${{ steps.filenames.outputs.targetname }}
           path: ${{ steps.filenames.outputs.sourcename }}
           retention-days: 1
-      - name: Upload build
-        uses: bitfocus/actions/upload-and-notify@main
-        with:
-          long-version: ${{ steps.filenames.outputs.longversion }}
-          beta-branch: main
-          dev-branch: develop
-
-          source-filename: ${{ steps.filenames.outputs.sourcename }}
-          destination-filename: ${{ steps.filenames.outputs.targetname }}
-          s3-host: ${{ secrets.S3_HOST }}
-          s3-bucket: ${{ secrets.S3_BUCKET }}/companion
-          s3-access-key: ${{ secrets.S3_KEY }}
-          s3-secret-key: ${{ secrets.S3_SECRET }}
-
-          api-product: companion
-          api-target: 'mac-arm'
-          api-secret: ${{ secrets.BITFOCUS_API_PROJECT_SECRET }}
 
   win32-x64:
     runs-on: ${{ startsWith(github.ref, 'refs/tags/') && fromJSON('["self-hosted", "Windows", "codecert", "X64"]') || 'windows-2019'}}
@@ -409,11 +319,7 @@ jobs:
           yarn tsx tools/build/complete.mts win32-x64
         env:
           CI: 1
-          SENTRY_DSN: ${{ secrets.SENTRY2_DSN }}
-          VITE_SENTRY_DSN: ${{ secrets.SENTRY2_UI_DSN }}
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY2_AUTH_TOKEN }}
           CSC_LINK: c:\\actions-runner-bitfocusas\\codesign.cer
-          BF_CODECERT_KEY: ${{ secrets.BF_CODECERT_KEY }}
 
       - name: Determine files to upload
         id: filenames
@@ -431,23 +337,7 @@ jobs:
           name: ${{ steps.filenames.outputs.targetname }}
           path: ${{ steps.filenames.outputs.sourcename }}
           retention-days: 1
-      - name: Upload build
-        uses: bitfocus/actions/upload-and-notify@main
-        with:
-          long-version: ${{ steps.filenames.outputs.longversion }}
-          beta-branch: main
-          dev-branch: develop
-
-          source-filename: ${{ steps.filenames.outputs.sourcename }}
-          destination-filename: ${{ steps.filenames.outputs.targetname }}
-          s3-host: ${{ secrets.S3_HOST }}
-          s3-bucket: ${{ secrets.S3_BUCKET }}/companion
-          s3-access-key: ${{ secrets.S3_KEY }}
-          s3-secret-key: ${{ secrets.S3_SECRET }}
-
-          api-product: companion
-          api-target: 'win-x64'
-          api-secret: ${{ secrets.BITFOCUS_API_PROJECT_SECRET }}
+          
 
   docker-image:
     runs-on: ubuntu-latest
