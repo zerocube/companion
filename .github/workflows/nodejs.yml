@@ -96,6 +96,8 @@ jobs:
           echo "targetname=companion-linux-x64-${VERSION}.tar.gz" >> $GITHUB_OUTPUT
           echo "longversion=${VERSION}" >> $GITHUB_OUTPUT
 
+          echo "longversion=${VERSION}"
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
