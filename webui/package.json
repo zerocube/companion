@@ -38,7 +38,7 @@
     "fuzzysort": "^3.1.0",
     "html-entities": "^2.6.0",
     "intersection-observer": "^0.12.2",
-    "lodash-es": "^4.17.21",
+    "lodash-es": "^4.17.23",
     "marked": "^15.0.11",
     "marked-base-url": "^1.1.6",
     "mobx": "^6.13.7",
