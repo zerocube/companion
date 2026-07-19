@@ -162,7 +162,6 @@ jobs:
           name: ${{ steps.filenames.outputs.targetname }}
           path: ${{ steps.filenames.outputs.sourcename }}
           retention-days: 1
-          
 
   osx-x64:
     runs-on: macos-latest
@@ -339,7 +338,6 @@ jobs:
           name: ${{ steps.filenames.outputs.targetname }}
           path: ${{ steps.filenames.outputs.sourcename }}
           retention-days: 1
-          
 
   docker-image:
     runs-on: ubuntu-latest
