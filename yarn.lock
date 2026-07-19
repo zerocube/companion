@@ -1226,7 +1226,7 @@ __metadata:
     plist: "npm:^3.1.0"
     semver: "npm:^7.7.1"
     strip-ansi: "npm:^7.1.0"
-    systeminformation: "npm:^5.25.11"
+    systeminformation: "npm:^5.31.7"
   languageName: unknown
   linkType: soft
 
@@ -6504,7 +6504,7 @@ asn1@evs-broadcast/node-asn1:
     socketcluster-client: "npm:^19.2.3"
     supertest: "npm:^7.1.0"
     supports-color: "npm:^10.0.0"
-    systeminformation: "npm:^5.25.11"
+    systeminformation: "npm:^5.31.7"
     tar-fs: "npm:^3.1.1"
     tar-stream: "npm:^3.1.7"
     type-fest: "npm:^4.40.0"
@@ -14019,12 +14019,12 @@ asn1@evs-broadcast/node-asn1:
   languageName: node
   linkType: hard
 
-"systeminformation@npm:^5.25.11":
-  version: 5.25.11
-  resolution: "systeminformation@npm:5.25.11"
+"systeminformation@npm:^5.31.7":
+  version: 5.31.7
+  resolution: "systeminformation@npm:5.31.7"
   bin:
     systeminformation: lib/cli.js
-  checksum: 10c0/c4d3ed2836dec306d017df66dded9bc0fea40bd5a277e29e9800f6272992cb084e08b8d2a9159ffdc823e75338c2dc9202b697d86504098fb063c1d8830d34d7
+  checksum: 10c0/0da74c1a74c3db401112abc7b5703aa2f42877558d8db9ce0a08eff7eb2b1a2c9415637adab42a17a25e4bb2075eb92fbba43283fb7ebdb701d9dd25d5c8a531
   conditions: (os=darwin | os=linux | os=win32 | os=freebsd | os=openbsd | os=netbsd | os=sunos | os=android)
   languageName: node
   linkType: hard
